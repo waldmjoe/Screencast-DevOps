@@ -62,7 +62,7 @@ Das Frontend ist eine Single-Page-Application (SPA), die mit React und Vite entw
     1.  Bietet eine Chat-Oberfläche im Browser.
     2.  Sendet Benutzereingaben per `Workspace`-API an den Backend-Endpunkt. Die URL des Endpunkts wird über Umgebungsvariablen gesteuert:
         * Für lokale Entwicklung (via `npm run dev`) wird der Wert aus `frontend/.env.development` (z.B. `http://localhost:8080/api/chat`) verwendet.
-        * Für den Docker-Build (via `npm run build`) wird standardmäßig `/api/chat` verwendet, welcher dann vom Nginx-Proxy im Frontend-Container an den Backend-Container weitergeleitet wird.
+        * Für den Docker-Build (via `npm run build`) wird standardmässig `/api/chat` verwendet, welcher dann vom Nginx-Proxy im Frontend-Container an den Backend-Container weitergeleitet wird.
     3.  Zeigt die Antworten des Sprachmodells im Chatfenster an.
 * **Build:**
     Das Frontend wird mit Vite und NPM gebaut (`npm run build`). Dieser Prozess generiert statische HTML-, JavaScript- und CSS-Dateien. Im Docker-Kontext werden diese statischen Dateien von einem Nginx-Server ausgeliefert. Der Build-Prozess ist im `Dockerfile` im Verzeichnis `frontend/` definiert.
@@ -80,9 +80,9 @@ Für dieses Projekt ist ein GitHub Actions Workflow unter `.github/workflows/doc
 * **Funktionen:**
     1.  Checkt den Code des Repositories aus.
     2.  Loggt sich bei Docker Hub ein, unter Verwendung der im GitHub-Repository hinterlegten Secrets `DOCKERHUB_USERNAME` und `DOCKERHUB_TOKEN`.
-    3.  Baut das Docker-Image für das Backend gemäß `backend/chat-backend/Dockerfile`.
+    3.  Baut das Docker-Image für das Backend gemäss `backend/chat-backend/Dockerfile`.
     4.  Pusht das Backend-Image zu Docker Hub (z.B. als `yourusername/screencast-chat-backend:latest`).
-    5.  Baut das Docker-Image für das Frontend gemäß `frontend/Dockerfile`.
+    5.  Baut das Docker-Image für das Frontend gemäss `frontend/Dockerfile`.
     6.  Pusht das Frontend-Image zu Docker Hub (z.B. als `yourusername/screencast-chat-frontend:latest`).
 
 Dieser Prozess stellt sicher, dass nach Code-Änderungen (inklusive Änderungen an der `system_prompt.txt`) automatisch aktuelle Images in der Registry bereitstehen.
@@ -92,7 +92,7 @@ Dieser Prozess stellt sicher, dass nach Code-Änderungen (inklusive Änderungen 
 Für die Entwicklung und zum Testen der einzelnen Komponenten können Frontend und Backend auch direkt auf dem Host-System gestartet werden.
 
 1.  **Ollama-Dienst starten:**
-    * Installiere Ollama gemäß der [offiziellen Anleitung](https://ollama.com/).
+    * Installiere Ollama gemäss der [offiziellen Anleitung](https://ollama.com/).
     * Lade das gewünschte Sprachmodell herunter (z.B. `phi3`):
         ```bash
         ollama pull phi3
@@ -101,7 +101,7 @@ Für die Entwicklung und zum Testen der einzelnen Komponenten können Frontend u
         ```bash
         ollama serve
         ```
-        Ollama ist dann standardmäßig unter `http://localhost:11434` erreichbar.
+        Ollama ist dann standardmässig unter `http://localhost:11434` erreichbar.
 
 2.  **Backend starten:**
     * Öffne ein Terminal im Verzeichnis `Screencast-DevOps/backend/chat-backend/`.
@@ -110,7 +110,7 @@ Für die Entwicklung und zum Testen der einzelnen Komponenten können Frontend u
         ```bash
         ./gradlew bootRun
         ```
-        Das Backend läuft dann standardmäßig unter `http://localhost:8080`. Die `system_prompt.txt` wird direkt aus dem Dateisystem gelesen.
+        Das Backend läuft dann standardmässig unter `http://localhost:8080`. Die `system_prompt.txt` wird direkt aus dem Dateisystem gelesen.
 
 3.  **Frontend starten:**
     * Öffne ein weiteres Terminal im Verzeichnis `Screencast-DevOps/frontend/`.
