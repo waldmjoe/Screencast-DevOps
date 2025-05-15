@@ -1,0 +1,139 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #333;
+}
+
+.chat-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 700px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  height: 85vh; /* Limit height */
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  color: #1a73e8; /* A nice blue */
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+.message-area {
+  flex-grow: 1; /* Takes available space */
+  overflow-y: auto; /* Scroll for messages */
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column; /* Stack messages vertically */
+}
+
+.message {
+  margin-bottom: 12px;
+  padding: 10px 15px;
+  border-radius: 18px; /* More rounded bubbles */
+  line-height: 1.4;
+  max-width: 75%; /* Messages don't span full width */
+  word-wrap: break-word;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.message.user {
+  background-color: #d1e9ff; /* Lighter blue for user */
+  color: #333;
+  align-self: flex-end; /* Align user messages to the right */
+  border-bottom-right-radius: 4px; /* Slightly different bubble shape */
+}
+
+.message.ai {
+  background-color: #e8eaed; /* Light grey for AI */
+  color: #333;
+  align-self: flex-start; /* Align AI messages to the left */
+  border-bottom-left-radius: 4px; /* Slightly different bubble shape */
+}
+
+.message strong {
+  font-weight: 600;
+}
+
+.message em { /* For "AI is thinking..." */
+  color: #5f6368;
+  font-style: italic;
+}
+
+
+.input-area {
+  display: flex;
+  margin-top: auto; /* Pushes to bottom if message area is not full */
+  border-top: 1px solid #e0e0e0;
+  padding-top: 15px;
+}
+
+.input-area input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px 0 0 20px; /* Rounded on left */
+  font-size: 1em;
+  outline: none;
+}
+
+.input-area input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.input-area button {
+  padding: 12px 20px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 0 20px 20px 0; /* Rounded on right */
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.input-area button:disabled {
+  background-color: #aecbfa; /* Lighter blue when disabled */
+  cursor: not-allowed;
+}
+
+.input-area button:hover:not(:disabled) {
+  background-color: #1558b0; /* Darker blue on hover */
+}
+
+/* Scrollbar styling (optional, for a cleaner look) */
+.message-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+.message-area::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.message-area::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.message-area::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
