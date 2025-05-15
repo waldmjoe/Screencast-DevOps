@@ -44,7 +44,7 @@ public class ChatController {
 
     private final WebClient webClient;
     private final String ollamaModel;
-    private String systemPrompt; // To store the loaded system prompt
+    private String systemPrompt;
 
     public ChatController(WebClient.Builder webClientBuilder,
                           @Value("${ollama.api.url}") String ollamaApiUrl,
