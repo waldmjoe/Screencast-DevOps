@@ -12,6 +12,9 @@
 	],
 	"settings": {
 		"java.compile.nullAnalysis.mode": "automatic",
-		"java.configuration.updateBuildConfiguration": "interactive"
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"files.exclude": {
+			"**/.git": false
+		}
 	}
 }
