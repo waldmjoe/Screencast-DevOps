@@ -22,3 +22,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables
+.env
+.env.*
+!.env.example # If you choose to have an example file
+
+# Node modules
+node_modules
+
+# Vite build output
+dist
+dist-ssr
+
+# Vite cache
+.vite

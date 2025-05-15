@@ -1,20 +1,27 @@
 package com.example.chat_backend;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import jakarta.annotation.PostConstruct;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
 record ChatRequest(String prompt) {}
 
-record OllamaRequest(String model, String prompt, boolean stream, List<Long> context) {}
+record OllamaRequest(String model, String prompt, String system, boolean stream, List<Long> context) {}
 
 record OllamaResponse(
     String model,
@@ -34,9 +41,10 @@ record OllamaResponse(
 @RestController
 @RequestMapping("/api/chat")
 public class ChatController {
-    
+
     private final WebClient webClient;
     private final String ollamaModel;
+    private String systemPrompt; // To store the loaded system prompt
 
     public ChatController(WebClient.Builder webClientBuilder,
                           @Value("${ollama.api.url}") String ollamaApiUrl,
@@ -45,13 +53,36 @@ public class ChatController {
         this.ollamaModel = ollamaModel;
     }
 
+    @PostConstruct
+    public void loadSystemPrompt() {
+        try {
+            ClassPathResource resource = new ClassPathResource("system_prompt.txt");
+            if (resource.exists()) {
+                InputStreamReader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
+                this.systemPrompt = FileCopyUtils.copyToString(reader);
+                System.out.println("Successfully loaded system prompt: " + this.systemPrompt.substring(0, Math.min(this.systemPrompt.length(), 100)) + "..."); // Log first 100 chars
+            } else {
+                System.out.println("system_prompt.txt not found, using default or no system prompt.");
+                this.systemPrompt = null; 
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading system_prompt.txt: " + e.getMessage());
+            this.systemPrompt = null; 
+        }
+    }
+
     @PostMapping
     public Mono<OllamaResponse> chat(@RequestBody ChatRequest request) {
-        // For stateless chat, pass null or empty list for context
-        OllamaRequest ollamaRequest = new OllamaRequest(this.ollamaModel, request.prompt(), false, null);
+        OllamaRequest ollamaRequest = new OllamaRequest(
+            this.ollamaModel,
+            request.prompt(),
+            this.systemPrompt, 
+            false,
+            null
+        );
 
         return webClient.post()
-                .uri("/api/generate") // Ollama's generation endpoint
+                .uri("/api/generate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(ollamaRequest)
                 .retrieve()

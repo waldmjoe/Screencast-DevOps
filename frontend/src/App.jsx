@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.css'; // We'll create this file next for styling
+import './App.css';
 
 function App() {
   const [prompt, setPrompt] = useState('');
@@ -7,43 +7,43 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!prompt.trim()) return;
+  e.preventDefault();
+  if (!prompt.trim()) return;
 
-    const userMessage = { sender: 'user', text: prompt };
-    // Use functional update to ensure we have the latest messages state
-    setMessages(prevMessages => [...prevMessages, userMessage]);
-    setIsLoading(true);
-    const currentPrompt = prompt; // Store prompt as it will be cleared
-    setPrompt(''); // Clear input after sending
+  const userMessage = { sender: 'user', text: prompt };
+  setMessages(prevMessages => [...prevMessages, userMessage]);
+  setIsLoading(true);
+  const currentPrompt = prompt;
+  setPrompt('');
 
-    try {
-      // Backend is running on port 8080
-      // Note: Later, when using Docker and Nginx, this URL will change to '/api/chat'
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt: currentPrompt }), // Use stored prompt
-      });
+  const apiEndpoint = import.meta.env.VITE_API_ENDPOINT || '/api/chat';
 
-      if (!response.ok) {
-        const errorData = await response.text();
-        throw new Error(`Network response was not ok: ${response.status} - ${errorData}`);
-      }
 
-      const data = await response.json();
-      const aiMessage = { sender: 'ai', text: data.response || "Sorry, I couldn't get a response." };
-      setMessages(prevMessages => [...prevMessages, aiMessage]);
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ prompt: currentPrompt }),
+    });
 
-    } catch (error) {
-      console.error('Failed to send message:', error);
-      const errorMessage = { sender: 'ai', text: `Error: ${error.message}` };
-      setMessages(prevMessages => [...prevMessages, errorMessage]);
-    } finally {
-      setIsLoading(false);
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Network response was not ok: ${response.status} - ${errorData}`);
     }
+
+    const data = await response.json();
+    const aiMessage = { sender: 'ai', text: data.response || "Sorry, I couldn't get a response." };
+    setMessages(prevMessages => [...prevMessages, aiMessage]);
+
+  } catch (error) {
+    console.error('Failed to send message:', error);
+    const errorMessage = { sender: 'ai', text: `Error: ${error.message}` };
+    setMessages(prevMessages => [...prevMessages, errorMessage]);
+    } finally {
+        setIsLoading(false);
+      }
   };
 
   return (
