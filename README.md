@@ -1,6 +1,6 @@
 # DevOps Screencast Projekt: Chat-Anwendung mit Ollama
 
-Dieses Repository enthält den Quellcode für eine Chat-Anwendung, die im Rahmen eines DevOps-Kurses als Screencast-Projekt entwickelt wurde. Die Anwendung nutzt ein lokal gehostetes Sprachmodell (LLM) über Ollama, um auf Benutzereingaben zu antworten. Das gesamte Projekt wird mit Git versioniert.
+Dieses Repository enthält den Quellcode für eine Chat-Anwendung, die im Rahmen eines DevOps-Kurses als Screencast-Projekt entwickelt wurde. Die Anwendung nutzt ein lokal gehostetes Sprachmodell (LLM) über Ollama, um auf Benutzereingaben zu antworten. Das gesamte Projekt wird mit Git versioniert. Ein grosser Teil des Codes wurde mittels KI-Tools (Gemini und Claude.AI) entwickelt. Debugging musste ich zum grössten Teil selber machen.
 
 ## Überblick
 
