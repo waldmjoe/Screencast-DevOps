@@ -20,7 +20,7 @@ function App() {
     try {
       // Backend is running on port 8080
       // Note: Later, when using Docker and Nginx, this URL will change to '/api/chat'
-      const response = await fetch('http://localhost:8080/api/chat', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
