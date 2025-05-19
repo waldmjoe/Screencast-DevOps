@@ -11,7 +11,6 @@ Das Projekt demonstriert verschiedene DevOps-Praktiken, darunter:
 * **Containerisierung:** Verpacken der Anwendungsdienste (Frontend, Backend, LLM-Server) mit Docker.
 * **Orchestrierung:** Nutzung von Docker Compose für die lokale Entwicklung und Ausführung des gesamten Anwendungsstacks.
 * **Continuous Integration (CI):** Automatisches Bauen und Pushen von Docker-Images zu Docker Hub mittels GitHub Actions.
-* **Konfigurierbarkeit:** Anpassung des LLM-Verhaltens durch eine externe System-Prompt-Datei.
 
 Die Anwendung besteht aus einem Java-basierten Backend, einem React-basierten Frontend und einem Ollama-Dienst, der das Sprachmodell bereitstellt.
 
